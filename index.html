@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登录页面</title>
+    <script src="./jquery.min.js"></script>
+    <link href="//unpkg.com/layui@2.8.18/dist/css/layui.css" rel="stylesheet" />
+    <script src="//unpkg.com/layui@2.8.18/dist/layui.js"></script>
+  </head>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    label {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    input {
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .register-link {
+      margin-top: 15px;
+    }
+
+    p {
+      color: #666;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+    #dl-btn {
+      width: 300px;
+    }
+    #obtain-btn {
+      margin-bottom: 20px;
+    }
+    #code-box {
+      width: 130px;
+      height: 70px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <form class="login-form">
+        <h1>登录</h1>
+        <label for="username">用户名/手机号</label>
+        <input type="text" id="username" name="username" />
+
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" required />
+        <button type="button" id="dl-btn">登录</button>
+      </form>
+
+      <div class="register-link">
+        <p>还没有账号？<a href="./注册.html">注册</a></p>
+      </div>
+    </div>
+    <script>
+      $(function () {
+        $("#dl-btn").click(dlBtnFun);
+      });
+      function dlBtnFun() {
+        let expiresTime = "1y";
+        $.ajax({
+          url: "http://manage.zzgoodqc.cn/api/user/login",
+          type: "post",
+          data: {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            expiresTime: "1y",
+          },
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+          },
+          success: function (res) {
+            if (res.status == "200") {
+              localStorage.setItem("token", res.data.token);
+              location.href = "./商品管理.html";
+            } else {
+              alert("密码或用户名错误");
+            }
+          },
+        });
+        let password = $("#password").val();
+        if (password.length < 6) {
+          alert("密码必须大于六位");
+        }
+      }
+    </script>
+  </body>
+</html>

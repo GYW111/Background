@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="//unpkg.com/layui@2.8.18/dist/css/layui.css" rel="stylesheet" />
+    <script src="//unpkg.com/layui@2.8.18/dist/layui.js"></script>
+    <script src="./jquery.min.js"></script>
+  </head>
+  <style>
+    #box {
+      width: 100%;
+      margin: auto;
+      background-color: rgb(242, 245, 255);
+    }
+
+    #add-btn {
+      margin: 20px 20px 0px 20px;
+    }
+
+    #head-box {
+      width: 100%;
+      height: 200px;
+      background-color: rgb(242, 245, 255);
+    }
+
+    #head-one {
+      width: 97%;
+      height: 80px;
+      position: relative;
+      background-color: #fff;
+      margin-left: 20px;
+    }
+
+    #head-one p {
+      display: inline;
+      position: absolute;
+      top: 30px;
+      color: rgb(99, 107, 122);
+    }
+
+    #layui-inpone {
+      width: 280px;
+      height: 35px;
+      display: inline;
+    }
+
+    #head-two {
+      width: 97%;
+      height: 110px;
+      color: black;
+      background-color: #fff;
+      margin-left: 20px;
+    }
+
+    #layui-inptwo {
+      width: 180px;
+      height: 35px;
+      display: inline-block;
+    }
+
+    #center-box {
+      width: 97%;
+      margin-top: 20px;
+      background-color: #fff;
+      margin-left: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border-bottom: 2px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fff;
+    }
+
+    table button {
+      color: rgb(66, 146, 253);
+      border: 0px;
+      background-color: #fff;
+    }
+    table img {
+      float: left;
+      margin-right: 10px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+    /* 表单容器 */
+    .form-container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    /* 表单标题 */
+    .form-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    /* 表单元素 */
+    .form-element {
+      margin-bottom: 10px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+
+  <body>
+    <div id="box">
+      <div id="head-box">
+        <div id="head-one">
+          <button id="add-btn" type="button" class="layui-btn layui-bg-blue">
+            +添加商品
+          </button>
+          <p>商品限制数量:&emsp;已使用177个/无限制</p>
+        </div>
+        <div id="head-two">
+          &emsp;&emsp;商品名称：<input
+            type="text"
+            name="A"
+            placeholder="商品名称/编码/条码"
+            class="layui-input"
+            id="layui-inpone"
+          />
+          &emsp; 商品分类：
+          <div class="layui-form" id="layui-inptwo">
+            <select lay-filter="demo-select-filter" id="save-classification">
+              <option value="">全部</option>
+              <option value="on_shelf">on_shelf</option>
+              <option value="off_shelf">off_shelf</option>
+              <option value="recycle_bin">recycle_bin</option>
+            </select>
+          </div>
+          &emsp; 创建时间：
+          <!-- <div class="layui-inline">
+            <div class="layui-input-inline layui-input-wrap">
+              <div class="layui-input-prefix">
+                <i class="layui-icon layui-icon-date"></i>
+              </div> -->
+          <input type="datetime-local" id="date" />
+          <!-- </div>
+          </div> -->
+          <br /><br />
+          &emsp;&emsp;商品类型：
+          <div class="layui-form" id="layui-inptwo">
+            <select lay-filter="demo-select-filter" id="save-type">
+              <option value="">请选择</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+          &emsp; 库存预警：
+          <div class="layui-form" id="layui-inptwo">
+            <select lay-filter="demo-select-filter">
+              <option value="">全部</option>
+              <option value="AAA">选项 A</option>
+              <option value="BBB">选项 B</option>
+              <option value="CCC">选项 C</option>
+            </select>
+          </div>
+          &emsp; 商品来源：
+          <div class="layui-form" id="layui-inptwo">
+            <select lay-filter="demo-select-filter">
+              <option value="">全部</option>
+              <option value="AAA">选项 A</option>
+              <option value="BBB">选项 B</option>
+              <option value="CCC">选项 C</option>
+            </select>
+          </div>
+          &emsp;
+          <button
+            id="save-btn"
+            style="height: 35px"
+            type="button"
+            class="layui-btn layui-btn-sm layui-btn-normal"
+          >
+            搜索
+          </button>
+          &emsp;
+          <a href="" style="color: rgb(66, 146, 253)">重置</a>
+          &emsp;
+          <a href="" style="color: rgb(66, 146, 253)">导出</a>
+          &emsp;
+          <a href="" style="color: rgb(66, 146, 253)">复制商品下载</a>
+          &emsp;
+          <i class="layui-icon layui-icon-question"></i>
+        </div>
+      </div>
+
+      <div id="center-box">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" name="" id="" /></th>
+              <th>排序</th>
+              <th>商品</th>
+              <th>价格</th>
+              <th>库存</th>
+              <th>实际销量</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <td>5555</td>
+                        <td><img src="" alt="" style="width: 70px;height: 70px;">
+                            <span>熙愈 美萃防晒喷雾</span>
+                            <p>SPF50PA+++UVA/UVB全波段高倍<br>
+                                防晒 一喷成膜 雾感细密 防水防...
+                            </p>
+                        </td>
+                        <td>￥45.90</td>
+                        <td>4995</td>
+                        <td>5</td>
+                        <td>2023-07-10 11:18:49</td>
+                        <td><button>下架</button>&emsp;<button>编辑</button>&emsp;
+                            <button>推广</button>&emsp;<br><br>
+                            <button>删除</button>&emsp;
+                            <button>复制</button>
+                        </td>
+                    </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="layui-btn layui-btn-sm layui-btn-primary"
+      id="top-btn"
+    >
+      上一页
+    </button>
+    <button
+      type="button"
+      class="layui-btn layui-btn-sm layui-btn-primary"
+      id="up-btn"
+    >
+      下一页
+    </button>
+
+    <div id="add-modal" class="modal">
+      <div class="modal-content">
+        <!-- 添加表单内容 -->
+        <div class="form-container">
+          <h2 class="form-title">添加商品</h2>
+
+          <div class="form-element">
+            <label for="name" class="form-label"
+              >商品名称：<input type="text" id="shop-name" class="form-input"
+            /></label>
+          </div>
+
+          <div class="form-element">
+            <label class="form-label">图片链接：</label>
+            <input type="text" id="shop-img" class="form-input" />
+          </div>
+
+          <div class="form-element">
+            <label for="country" class="form-label">商品排序：</label>
+            <input type="text" id="shop-sort" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品价格：</label>
+            <input type="text" id="shop-price" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品库存：</label>
+            <input type="text" id="shop-stock" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">实际销量：</label>
+            <input type="text" id="shop-actual_sales" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品状态：</label>
+            <input type="text" id="shop-status" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品类型：</label>
+            <input type="text" id="shop-type" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">分类id：</label>
+            <input type="text" id="shop-category" class="form-input" />
+          </div>
+          <button
+            type="button"
+            id="addlist-btn"
+            class="layui-btn layui-bg-orange"
+          >
+            添加
+          </button>
+          <button type="button" id="qx-btn" class="layui-btn layui-bg-orange">
+            取消
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="xiu-modal" class="modal">
+      <div class="modal-content">
+        <!-- 添加表单内容 -->
+        <div class="form-container">
+          <h2 class="form-title">编辑商品</h2>
+
+          <div class="form-element">
+            <label for="name" class="form-label"
+              >商品名称：<input type="text" id="modify-name" class="form-input"
+            /></label>
+          </div>
+
+          <div class="form-element">
+            <label class="form-label">图片链接：</label>
+            <input type="text" id="modify-img" class="form-input" />
+          </div>
+
+          <div class="form-element">
+            <label for="country" class="form-label">商品排序：</label>
+            <input type="text" id="modify-sort" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品价格：</label>
+            <input type="text" id="modify-price" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品库存：</label>
+            <input type="text" id="modify-stock" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">实际销量：</label>
+            <input type="text" id="modify-actual_sales" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品状态：</label>
+            <input type="text" id="modify-status" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">商品类型：</label>
+            <input type="text" id="modify-type" class="form-input" />
+          </div>
+          <div class="form-element">
+            <label class="form-label">分类id：</label>
+            <input type="text" id="modify-category" class="form-input" />
+          </div>
+          <button
+            type="button"
+            id="modify-btn"
+            class="layui-btn layui-bg-orange"
+          >
+            确认修改
+          </button>
+          <button type="button" id="xgqx-btn" class="layui-btn layui-bg-orange">
+            取消
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      layui.use(function () {
+        var form = layui.form;
+        var layer = layui.layer;
+        // select 事件
+        form.on("select(demo-select-filter)", function (data) {
+          var elem = data.elem; // 获得 select 原始 DOM 对象
+          var value = data.value; // 获得被选中的值
+          var othis = data.othis; // 获得 select 元素被替换后的 jQuery 对象
+          layer.msg(this.innerHTML + " 的 value: " + value); // this 为当前选中 <option> 元素对象
+        });
+      });
+
+      // layui.use(["form", "laydate", "util"], function () {
+      //   var form = layui.form;
+      //   var laydate = layui.laydate;
+      //   // 日期
+      //   laydate.render({
+      //     elem: "#date",
+      //   });
+      // });
+      $(function () {
+        getListFun();
+        $("#top-btn").click(topFun);
+        $("#up-btn").click(upFun);
+        $("tbody").click(tbodyFun);
+        $("#add-btn").click(addLisiFun);
+        //添加
+        $("#addlist-btn").click(addlistFun);
+        $("#qx-btn").click(qxFun);
+        $("#xgqx-btn").click(xgqxFun);
+        //修改
+        $("#modify-btn").click(modifyFun);
+        //搜索
+        $("#save-btn").click(saveBtnFun);
+      });
+      let page = 1;
+      let limit = 5;
+      let listID;
+      //搜索
+      function saveBtnFun() {
+        let savedata = {
+          title: $("#layui-inpone").val(),
+          create_time: $("#date").val(),
+          type: $("#save-type").val(),
+          status: $("#save-classification").val(),
+        };
+        console.log(savedata);
+        $.ajax({
+          url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
+          type: "get",
+          data: savedata,
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+          },
+          success: function (res) {
+            console.log(res);
+          },
+        });
+      }
+      //保存修改
+      function modifyFun() {
+        let updata = {
+          title: $("#modify-name").val(),
+          thumbnail: $("#modify-img").val(),
+          sort: $("#modify-sort").val(),
+          price: $("#modify-price").val(),
+          stock: $("#modify-stock").val(),
+          actual_sales: $("#modify-actual_sales").val(),
+          status: $("#modify-status").val(),
+          type: $("#modify-type").val(),
+          category: $("#modify-category").val(),
+        };
+        $.ajax({
+          url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
+          type: "put",
+          data: updata,
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+          },
+          dataType: "json",
+          success: function (res) {
+            console.log(res);
+            $("#xiu-modal").toggle();
+            getListFun();
+          },
+        });
+      }
+      function xgqxFun() {
+        $("#xiu-modal").hide();
+      }
+      function qxFun() {
+        $("#add-modal").hide();
+      }
+      //添加
+      function addlistFun() {
+        let obj = {
+          title: $("#shop-name").val(),
+          thumbnail: $("#shop-img").val(),
+          sort: $("#shop-sort").val(),
+          price: $("#shop-price").val(),
+          stock: $("#shop-stock").val(),
+          actual_sales: $("#shop-actual_sales").val(),
+          status: $("#shop-status").val(),
+          type: $("#shop-type").val(),
+          category: $("#shop-category").val(),
+        };
+        console.log(obj);
+        $.ajax({
+          url: "https://manage.zzgoodqc.cn/api/goods",
+          type: "post",
+          data: obj,
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+          },
+          success: function (res) {
+            $("#add-modal").hide();
+            $("#shop-name").val("");
+            $("#shop-img").val("");
+            $("#shop-sort").val("");
+            $("#shop-price").val("");
+            $("#shop-stock").val("");
+            $("#shop-actual_sales").val("");
+            $("#shop-status").val("");
+            $("#shop-type").val("");
+            $("#shop-category").val("");
+            getListFun();
+          },
+        });
+      }
+      function addLisiFun() {
+        $("#add-modal").toggle();
+      }
+      function topFun() {
+        page--;
+        page = page == 0 ? 1 : page;
+        getListFun();
+      }
+      function upFun() {
+        page++;
+        getListFun();
+      }
+
+      function tbodyFun() {
+        if (event.target.tagName === "BUTTON") {
+          if (event.target.innerHTML === "删除") {
+            listID = $(event.target).data("id");
+            console.log(listID);
+            $.ajax({
+              url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
+              type: "delete",
+              dataType: "json",
+              headers: {
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+              },
+              success: function (res) {
+                console.log(res);
+                getListFun();
+              },
+            });
+          }
+          if (event.target.innerHTML === "编辑") {
+            $("#xiu-modal").show();
+            listID = $(event.target).data("id");
+            $.ajax({
+              url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
+              type: "get",
+              headers: {
+                Authorization:
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+              },
+              dataType: "json",
+              success: function (data) {
+                console.log(data.data);
+                $("#modify-name").val(data.data.title);
+                $("#modify-img").val(data.data.thumbnail);
+                $("#modify-sort").val(data.data.sort);
+                $("#modify-price").val(data.data.price);
+                $("#modify-stock").val(data.data.stock);
+                $("#modify-actual_sales").val(data.data.actual_sales);
+                $("#modify-status").val(data.data.status);
+                $("#modify-type").val(data.data.type);
+                $("#modify-category").val(data.data.category);
+              },
+            });
+          }
+        }
+      }
+      function getListFun() {
+        $.ajax({
+          url: `http://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}`,
+          type: "get",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+          },
+          success: function (res) {
+            let html = ``;
+            res.data.data.forEach((item, index) => {
+              html += `<tr>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <td>${item.sort}</td>
+                        <td><img src="${item.thumbnail}" alt="" style="width: 70px;height: 70px;" >
+                            <span>${item.title}</span>
+                        </td>
+                        <td>${item.price}</td>
+                        <td>${item.stock}</td>
+                        <td>${item.actual_sales}</td>
+                        <td>${item.create_time}</td>
+                        <td><button>下架</button>&emsp;<button data-id=${item.id}>编辑</button>&emsp;
+                            <button>推广</button>&emsp;<br><br>
+                            <button data-id=${item.id}>删除</button>&emsp;
+                            <button>复制</button>
+                        </td>
+                    </tr>`;
+              $("tbody").html(html);
+            });
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

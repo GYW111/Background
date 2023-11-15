@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>个人信息</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+      }
+
+      section {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .profile-picture {
+        border-radius: 50%;
+        max-width: 150px;
+        margin: 0 auto;
+        display: block;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .info {
+        margin-top: 20px;
+        line-height: 1.6;
+      }
+
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>你的名字</h1>
+      <p>个人信息页面</p>
+    </header>
+
+    <section>
+      <img
+        class="profile-picture"
+        src="https://img2.baidu.com/it/u=3281501164,914962348&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
+        alt="Profile Picture"
+      />
+
+      <div class="info">
+        <!-- <h2>个人信息</h2>
+        <p>性别: 男</p>
+        <p>年龄: 25</p>
+        <p>职业: 软件工程师</p>
+
+        <h2>联系方式</h2>
+        <p>Email: your.email@example.com</p>
+        <p>电话: +1234567890</p> -->
+
+        <!-- 更多个人信息 -->
+      </div>
+    </section>
+
+    <footer>&copy; 2023 个人信息页面</footer>
+    <script src="./jquery.min.js"></script>
+    <script>
+      $(function () {
+        $.ajax({
+          url: "https://manage.zzgoodqc.cn/api/user/userinfo",
+          type: "get",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+          },
+          dataType: "json",
+          success: function (res) {
+            let arr = Array(res.data);
+            let html = ``;
+            arr.forEach((item, index) => {
+              html += `<h2>个人信息</h2>
+            <p>姓名：${item.username}</p>
+            <p>id：${item.id}</p>
+            <h2>联系方式</h2>
+            <p>Email: ${item.email}</p>
+            <p>电话: ${item.mobile}</p>
+            <p>QQ: ${item.qq}</p>
+            <p>创建时间: ${item.created_at}</p>
+            <p>更新时间: ${item.updated_at}</p>
+            `;
+              $(".info").html(html);
+            });
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
