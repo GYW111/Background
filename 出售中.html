@@ -446,21 +446,43 @@
           status: $("#save-classification").val(),
         };
         console.log(savedata);
+        let token = localStorage.getItem("token");
         $.ajax({
-          url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
+          url: `https://manage.zzgoodqc.cn/api/goods/`,
           type: "get",
           data: savedata,
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+            Authorization: token,
           },
           success: function (res) {
-            console.log(res);
+            let html = ``;
+            res.data.data.forEach((item, index) => {
+              html += `<tr>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <td>${item.sort}</td>
+                        <td><img src="${item.thumbnail}" alt="" style="width: 70px;height: 70px;" >
+                            <span>${item.title}</span>
+                        </td>
+                        <td>${item.price}</td>
+                        <td>${item.stock}</td>
+                        <td>${item.actual_sales}</td>
+                        <td>${item.create_time}</td>
+                        <td>
+                        </td>
+                    </tr>`;
+              $("tbody").html(html);
+            });
+
+            $("#layui-inpone").val("");
+            $("#date").val("");
+            $("#save-type").val("全部");
+            $("#save-classification").val("全部");
           },
         });
       }
       //保存修改
       function modifyFun() {
+        let token = localStorage.getItem("token");
         let updata = {
           title: $("#modify-name").val(),
           thumbnail: $("#modify-img").val(),
@@ -477,8 +499,7 @@
           type: "put",
           data: updata,
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+            Authorization: token,
           },
           dataType: "json",
           success: function (res) {
@@ -496,6 +517,7 @@
       }
       //添加
       function addlistFun() {
+        let token = localStorage.getItem("token");
         let obj = {
           title: $("#shop-name").val(),
           thumbnail: $("#shop-img").val(),
@@ -513,8 +535,7 @@
           type: "post",
           data: obj,
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+            Authorization: token,
           },
           success: function (res) {
             $("#add-modal").hide();
@@ -549,13 +570,13 @@
           if (event.target.innerHTML === "删除") {
             listID = $(event.target).data("id");
             console.log(listID);
+            let token = localStorage.getItem("token");
             $.ajax({
               url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
               type: "delete",
               dataType: "json",
               headers: {
-                Authorization:
-                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+                Authorization: token,
               },
               success: function (res) {
                 console.log(res);
@@ -564,14 +585,14 @@
             });
           }
           if (event.target.innerHTML === "编辑") {
+            let token = localStorage.getItem("token");
             $("#xiu-modal").show();
             listID = $(event.target).data("id");
             $.ajax({
               url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
               type: "get",
               headers: {
-                Authorization:
-                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+                Authorization: token,
               },
               dataType: "json",
               success: function (data) {
@@ -591,12 +612,12 @@
         }
       }
       function getListFun() {
+        let token = localStorage.getItem("token");
         $.ajax({
           url: `http://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}`,
           type: "get",
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRmZ2giLCJpZCI6NzUsIm1vYmlsZSI6IjE4MzM3OTY2MjAzIiwiZW1haWwiOiJkZmhkZkBxcS5jb20iLCJxcSI6IjMyNTk5ODc3NTYiLCJpYXQiOjE2OTk5NTkyNTgsImV4cCI6MTczMTUxNjg1OH0.6s7ZMg3yPqGOqV9avvYaA_DBWzqWp7QBLixQKARCxZk",
+            Authorization: token,
           },
           success: function (res) {
             let html = ``;
