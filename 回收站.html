@@ -572,7 +572,7 @@
             console.log(listID);
             let token = localStorage.getItem("token");
             $.ajax({
-              url: `https://manage.zzgoodqc.cn/api/goods/solt/` + listID,
+              url: `https://manage.zzgoodqc.cn/api/goods/recycle/` + listID,
               type: "delete",
               dataType: "json",
               headers: {
@@ -606,6 +606,24 @@
                 $("#modify-status").val(data.data.status);
                 $("#modify-type").val(data.data.type);
                 $("#modify-category").val(data.data.category);
+                getListFun();
+              },
+            });
+          }
+          if (event.target.innerHTML === "恢复") {
+            let token = localStorage.getItem("token");
+            listID = $(event.target).data("id");
+            console.log(listID);
+            $.ajax({
+              url: "https://manage.zzgoodqc.cn/api/goods/" + listID,
+              type: "patch",
+              headers: {
+                Authorization: token,
+              },
+              dataType: "json",
+              success: function (res) {
+                console.log(res);
+                getListFun();
               },
             });
           }
@@ -614,7 +632,7 @@
       function getListFun() {
         let token = localStorage.getItem("token");
         $.ajax({
-          url: `http://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}&is_sale=1`,
+          url: `http://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}&is_recycle=1`,
           type: "get",
           headers: {
             Authorization: token,
@@ -632,10 +650,8 @@
                         <td>${item.stock}</td>
                         <td>${item.actual_sales}</td>
                         <td>${item.create_time}</td>
-                        <td><button>下架</button>&emsp;<button data-id=${item.id}>编辑</button>&emsp;
-                            <button>推广</button>&emsp;<br><br>
+                        <td><button data-id=${item.id}>恢复</button>&emsp;<button data-id=${item.id}>编辑</button>&emsp;
                             <button data-id=${item.id}>删除</button>&emsp;
-                            <button>复制</button>
                         </td>
                     </tr>`;
               $("tbody").html(html);

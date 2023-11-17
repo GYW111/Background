@@ -233,12 +233,10 @@
           <thead>
             <tr>
               <th><input type="checkbox" name="" id="" /></th>
-              <th>排序</th>
+              <th>ID</th>
               <th>商品</th>
-              <th>价格</th>
-              <th>库存</th>
-              <th>实际销量</th>
               <th>创建时间</th>
+              <th>更新时间</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -519,7 +517,7 @@
       function addlistFun() {
         let token = localStorage.getItem("token");
         let obj = {
-          title: $("#shop-name").val(),
+          name: $("#shop-name").val(),
           thumbnail: $("#shop-img").val(),
           sort: $("#shop-sort").val(),
           price: $("#shop-price").val(),
@@ -531,13 +529,14 @@
         };
         console.log(obj);
         $.ajax({
-          url: "https://manage.zzgoodqc.cn/api/goods",
+          url: "https://manage.zzgoodqc.cn/api/category/",
           type: "post",
           data: obj,
           headers: {
             Authorization: token,
           },
           success: function (res) {
+            console.log(res);
             $("#add-modal").hide();
             $("#shop-name").val("");
             $("#shop-img").val("");
@@ -572,7 +571,7 @@
             console.log(listID);
             let token = localStorage.getItem("token");
             $.ajax({
-              url: `https://manage.zzgoodqc.cn/api/goods/solt/` + listID,
+              url: `https://manage.zzgoodqc.cn/api/category/` + listID,
               type: "delete",
               dataType: "json",
               headers: {
@@ -589,23 +588,23 @@
             $("#xiu-modal").show();
             listID = $(event.target).data("id");
             $.ajax({
-              url: `https://manage.zzgoodqc.cn/api/goods/` + listID,
+              url: `https://manage.zzgoodqc.cn/api/category/` + listID,
               type: "get",
               headers: {
                 Authorization: token,
               },
               dataType: "json",
               success: function (data) {
-                console.log(data.data);
-                $("#modify-name").val(data.data.title);
-                $("#modify-img").val(data.data.thumbnail);
-                $("#modify-sort").val(data.data.sort);
-                $("#modify-price").val(data.data.price);
-                $("#modify-stock").val(data.data.stock);
-                $("#modify-actual_sales").val(data.data.actual_sales);
-                $("#modify-status").val(data.data.status);
-                $("#modify-type").val(data.data.type);
-                $("#modify-category").val(data.data.category);
+                console.log(data.data.name);
+                $("#modify-name").val(data.data.name);
+                // $("#modify-img").val(data.data.thumbnail);
+                // $("#modify-sort").val(data.data.sort);
+                // $("#modify-price").val(data.data.price);
+                // $("#modify-stock").val(data.data.stock);
+                // $("#modify-actual_sales").val(data.data.actual_sales);
+                // $("#modify-status").val(data.data.status);
+                // $("#modify-type").val(data.data.type);
+                // $("#modify-category").val(data.data.category);
               },
             });
           }
@@ -614,7 +613,7 @@
       function getListFun() {
         let token = localStorage.getItem("token");
         $.ajax({
-          url: `http://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}&is_sale=1`,
+          url: `https://manage.zzgoodqc.cn/api/category?page=${page}&limit=${limit}`,
           type: "get",
           headers: {
             Authorization: token,
@@ -624,14 +623,12 @@
             res.data.data.forEach((item, index) => {
               html += `<tr>
                         <td><input type="checkbox" name="" id=""></td>
-                        <td>${item.sort}</td>
-                        <td><img src="${item.thumbnail}" alt="" style="width: 70px;height: 70px;" >
-                            <span>${item.title}</span>
+                        <td>${item.id}</td>
+                        <td>
+                            <span>${item.name}</span>
                         </td>
-                        <td>${item.price}</td>
-                        <td>${item.stock}</td>
-                        <td>${item.actual_sales}</td>
-                        <td>${item.create_time}</td>
+                        <td>${item.created_at}</td>
+                        <td>${item.updated_at}</td>
                         <td><button>下架</button>&emsp;<button data-id=${item.id}>编辑</button>&emsp;
                             <button>推广</button>&emsp;<br><br>
                             <button data-id=${item.id}>删除</button>&emsp;
