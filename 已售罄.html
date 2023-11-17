@@ -614,7 +614,7 @@
       function getListFun() {
         let token = localStorage.getItem("token");
         $.ajax({
-          url: `http://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}&is_stock=1`,
+          url: `https://manage.zzgoodqc.cn/api/goods?page=${page}&limit=${limit}&is_stock=1`,
           type: "get",
           headers: {
             Authorization: token,
