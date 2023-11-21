@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Swiper demo</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.css"
+    />
+
+    <!-- Demo styles -->
+    <style>
+      html,
+      body {
+        width: 590px;
+        position: relative;
+        height: 470px;
+        margin: auto;
+      }
+
+      body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+      }
+
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .swiper {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        font-size: 18px;
+        color: #fff;
+      }
+      .swiper-pagination {
+        position: absolute;
+        left: 0px;
+      }
+      .swiper-pagination-fraction,
+      .swiper-pagination-custom,
+      .swiper-horizontal > .swiper-pagination-bullets,
+      .swiper-pagination-bullets.swiper-pagination-horizontal {
+        width: 30%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img
+            src="https://img10.360buyimg.com/pop/s1180x940_jfs/t1/188581/11/41061/68577/655716c4Ffa75c03c/7c6e46c0db6ef374.jpg.webp"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000366/100010079231/FocusFullshop/CkJqZnMvdDEvMjM1OTAzLzE3LzE1MTUvNDk3NjkvNjU0NTRhNDBGZDRiMDhkYjkvNzM3YzU5NTdmODBkMGIwNC5wbmcSCTMtdHlfMF81NDACOO6LekITCg_mma7ogZTot6_nlLHlmagQAUIPCgvmu6ExMDDlh48yMBACQhAKDOeri-WNs-aKoui0rRAGQgoKBuenjeiNiRAHWP_nwsj0Ag/cr/s/q.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000367/2179714/FocusFullshop/CkNqZnMvdDEvMjM1NTMwLzMwLzEzODIvNTIxMDI0LzY1NDU2YTA2RjUxMWUxNzkwL2M3MTlhMjIzYjU2YjJlMTMucG5nEgk1LXR5XzBfNTYwAjjvi3pCEwoP5qyn6IiS5Li56aaZ55qCEAFCEwoP5LyY5oOg5Lqr5LiN5YGcEAJCEAoM56uL5Y2z5oqi6LStEAZCCgoG5LyY6LSoEAdYgoWFAQ/cr/s/q.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzE0NTY3Mi8xNy8zOTM1Ni8zNzQ2OS82NGUzMjhjMkY1OGNjOTk3ZC9kMzI5NzJiMWI0YWE1MzNlLnBuZw/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635183971814293505/cr/s/q.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000368/10040792667262/FocusFullshop/CkFqZnMvdDEvMjI3MDQwLzYvMjAyMS85MTIzNy82NTQ1NWNmMEY4MWYzODI2ZS9kZjkyZTk2NDZkZGRhY2MzLnBuZxIJMi10eV8wXzUzMAI48It6Qg0KCVJPR-mUruebmBABQg0KCei0rei_h-eYvhACQhAKDOeri-WNs-aKoui0rRAGQgoKBui2heWAvBAHWP6ohe-cpAI/cr/s/q.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000366/51929467349/FocusFullshop/CkJqZnMvdDEvMjM2NzkwLzE2LzE1ODgvMzc3NzIvNjU0NTZkYzdGMDY0YWRkYzgvY2UxMGFjMmVhNTgyZDNkMS5wbmcSCTQtdHlfMF81NTACOO6LekIVChFUaGlua1BhZOeslOiusOacrBABQhAKDOebm-aDoOeLrOS6qxACQhAKDOeri-WNs-aKoui0rRAGQgcKA-aKohAHWNWT87nBAQ/cr/s/q.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
+</html>

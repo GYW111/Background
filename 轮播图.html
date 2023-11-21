@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Swiper demo</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.css"
+    />
+
+    <!-- Demo styles -->
+    <style>
+      html,
+      body {
+        width: 100%;
+        position: relative;
+        height: 400px;
+        top: 40px;
+      }
+
+      body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+      }
+
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .swiper-slide {
+        width: 30%;
+        height: 100%;
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img
+            src="https://pic3.zhimg.com/v2-51d6270303e685ebb5b8fac2d7bdd43e_r.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://pic3.zhimg.com/v2-ae55e8bbf89ef4f2fa2b0d1cc6d5f88c_r.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://ts1.cn.mm.bing.net/th/id/R-C.bbc550d75e61bcf8f457124abc8c4a12?rik=1s6x%2fl54KNckCA&riu=http%3a%2f%2fpuui.qpic.cn%2fvcover_vt_pic%2f0%2fmzc00200nc1cbum1615792624639%2f0&ehk=z8GpupAY3X3LGXF9p14cPtlT84l4Qy8WB0QKLmQCEcA%3d&risl=&pid=ImgRaw&r=0"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://sjbz-fd.zol-img.com.cn/t_s1080x1920c/g5/M00/00/03/ChMkJ1fJVieIXioqACJAJZZ8ZqUAAU98QAm5O0AIkA9233.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://ts1.cn.mm.bing.net/th/id/R-C.fbd04b777913b8497f433219bb261bbd?rik=6X80hBGR4RPXTQ&riu=http%3a%2f%2fd-paper.i4.cn%2fmax%2f2016%2f08%2f25%2f16%2f1472115273524_362637.jpg&ehk=nP0fqcJ7gqpDweY8ors8AxXdkPBiwNYd73VOjh%2b%2btmA%3d&risl=&pid=ImgRaw&r=0"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://pic4.zhimg.com/v2-ef45d42335ab2a69d78e3305e6adab3e_r.jpg?source=1940ef5c"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://img.zcool.cn/community/01df3c5ca61d9da8012141686e24b8.jpg@1280w_1l_2o_100sh.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://bbsfiles.vivo.com.cn/vivobbs/attachment/forum/201602/20/114630gzposgbwzedrwee3.jpg"
+            alt=""
+          />
+        </div>
+        <div class="swiper-slide">
+          <img
+            src="https://ts1.cn.mm.bing.net/th/id/R-C.c1700009c156632d13a12ec6be10c033?rik=LT5UiVbHqUvhCw&riu=http%3a%2f%2fvorcdn.xiaodutv.com%2f98f5c6086d6f4cbe654f0a6a825aa7e1&ehk=UDll0Hh6Rw8%2bJ15WBESH7D%2bbf6zooST%2bf9A8PyQtok0%3d&risl=&pid=ImgRaw&r=0"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 6,
+        spaceBetween: 30,
+        slidesPerGroup: 6,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
+</html>
